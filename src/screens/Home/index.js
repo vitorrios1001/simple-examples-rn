@@ -1,6 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native'
-import { Card } from '../../components'
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+} from 'react-native'
 
 const menus = [
   { name: 'Boxes' },
@@ -8,41 +14,54 @@ const menus = [
   { name: 'Cards' },
 ]
 
+const WIDTH = Dimensions.get('window').width
+
 const Home = ({ navigation }) => {
 
-  // const renderMenus = () => (
-  //   menus.map((menu, idx) => (
-  //     <TouchableOpacity onPress={() => navigation.navigate(menu.name)} >
-  //       <Card>
-  //         <Text>
-  //           {menu.name}
-  //         </Text>
-  //       </Card>
-  //     </TouchableOpacity>
-  //   ))
-  // )
+  const columns = 2
 
   return (
     <ScrollView>
       <FlatList
         data={menus}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate(item.name)} >
-            <Card>
-              <Text>
-                {item.name}
-              </Text>
-            </Card>
+          <TouchableOpacity
+            style={[styles.itemMenu, { width: (WIDTH-16)/columns}]}
+            onPress={() => navigation.navigate(item.name)}
+          >
+            <Text style={styles.textMenu}>
+              {item.name}
+            </Text>
           </TouchableOpacity>
         )}
+        style={styles.list}
         numColumns={2}
         keyExtractor={item => item.name}
       />
-      {/* {renderMenus()} */}
     </ScrollView>
   )
 }
 
 export default Home
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  list: {
+    display: 'flex',
+    flex: 1,
+  },
+  itemMenu: {
+    padding: 16,
+    margin: 4,
+    height: 120,
+    borderRadius: 8,
+    backgroundColor: '#6959CD',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  textMenu: {
+    fontSize: 36,
+    color: '#FFF',
+  },
+})
