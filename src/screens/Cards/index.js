@@ -1,23 +1,24 @@
 import React from 'react';
 
-import { SafeAreaView, View, StyleSheet, Image, ScrollView } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Title, Body } from '../../components/ui/typograph';
 import { Card } from '../../components';
 
-const App = () => {
-
+const Cards = () => {
   const renderCards = () => (
     [1,2,3].map(card => (
-      <Card key={card}>
-        <View style={styles.containerImage}>
-          <Image source={require('../../assets/images/react-native.png')} style={styles.image}/>
-        </View>
+      <TouchableOpacity onPress={() => alert(data.content.description)} style={styles.containerCard} key={card}>
+        <Card >
+          <View style={styles.containerImage}>
+            <Image source={require('../../assets/images/react-native.png')} style={styles.image}/>
+          </View>
 
-        <View>
-          <Title>{data.content.title}</Title>
-          <Body>{data.content.description}</Body>
-        </View>
-      </Card>
+          <View style={styles.content}>
+            <Title>{data.content.title}</Title>
+            <Body>{data.content.description}</Body>
+          </View>
+        </Card>
+      </TouchableOpacity>
     ))
   )
 
@@ -45,6 +46,12 @@ const styles = StyleSheet.create({
     height: '100%',
     padding: 16
   },
+  content: {
+    marginVertical: 16,
+  },
+  containerCard: {
+    marginVertical: 8,
+  },
   containerImage: {
     width: '100%',
     height: 200,
@@ -57,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Cards;
