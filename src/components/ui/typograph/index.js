@@ -2,17 +2,27 @@ import React from 'react'
 
 import { StyleSheet, Text } from 'react-native'
 
-const Body = ({ children, color }) => {
+const Body = ({
+  children,
+  color = '#222',
+  fontSize = 16,
+  textAlign = 'left',
+}) => {
   return (
-    <Text style={[styles.common, styles.body, { color: color }]}>
+    <Text style={[{ color, fontSize, textAlign }]}>
       {children}
     </Text>
   )
 }
 
-const Title = ({ children, color }) => {
+const Title = ({
+  children,
+  color = '#222',
+  fontSize = 24,
+  textAlign = 'left',
+}) => {
   return (
-    <Text style={[styles.common, styles.title, { color: color }]}>
+    <Text style={[styles.title, { color, fontSize, textAlign, }]}>
       {children}
     </Text>
   )
@@ -21,14 +31,7 @@ const Title = ({ children, color }) => {
 export { Title, Body }
 
 const styles = StyleSheet.create({
-  common: {
-    color: '#222',
-  },
   title: {
-    fontSize: 24,
     fontWeight: 'bold',
-  },
-  body: {
-    fontSize: 16,
   },
 })
