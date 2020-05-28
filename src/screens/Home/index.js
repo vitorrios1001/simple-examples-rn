@@ -12,6 +12,8 @@ const menus = [
   { name: 'Boxes' },
   { name: 'IMC' },
   { name: 'Cards' },
+  { name: 'List' },
+  { name: 'Posts' },
 ]
 
 const WIDTH = Dimensions.get('window').width
