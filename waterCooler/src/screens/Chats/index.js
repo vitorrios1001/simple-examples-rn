@@ -6,6 +6,7 @@ import Search from '../../components/Search'
 import Header from '../../components/Header'
 import SwitchTheme from '../../components/SwitchTheme'
 import IconTheme from '../../components/IconTheme'
+import StatusBarStyled from '../../components/StatusBarStyled'
 
 const Chats = ({ navigation }) => {
   const renderFakeLogo = (
@@ -21,7 +22,8 @@ const Chats = ({ navigation }) => {
   )
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBarStyled />
       <Header
         center={renderFakeLogo}
         right={renderFakeAdd}

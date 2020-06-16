@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, StatusBar } from 'react-native'
+import { StyleSheet, View, SafeAreaView } from 'react-native'
 
 import Logo from '../../components/Logo'
 import Button from '../../components/Button'
@@ -16,7 +16,7 @@ const Login = ({ navigation }) => {
   const { colors, type } = theme
 
   return (
-    <View style={[sd.COLUMN, styles.container, { backgroundColor: colors.primary }]}>
+    <SafeAreaView style={[sd.COLUMN, styles.container, { backgroundColor: colors.primary }]}>
       <StatusBarStyled />
       
       <View style={[styles.containerLogo,]}>
@@ -36,7 +36,7 @@ const Login = ({ navigation }) => {
           <Title color={colors.secondary} >Login</Title>
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

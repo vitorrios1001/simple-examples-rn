@@ -6,8 +6,8 @@ import Chat from '../../../components/Chat'
 import data from './data'
 
 const ChatList = () => {
-  const renderItem = ({ item }) => (
-    <Chat {...item} />
+  const renderItem = ({ item }, index) => (
+    <Chat key={index} {...item} />
   )
 
   return (

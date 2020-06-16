@@ -10,6 +10,7 @@ const StatusBarStyled = () => {
   return (
     <>
       <StatusBar
+        translucent
         backgroundColor={colors.primary}
         barStyle={type === TypesTheme.light ? 'light-content' : 'dark-content'}
       /> 
