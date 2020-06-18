@@ -1,16 +1,25 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, SafeAreaView } from 'react-native'
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 
 import { Chats} from '../screens'
+import StatusBarStyled from '../components/StatusBarStyled'
 
 const Tab = createMaterialBottomTabNavigator()
 
 const EmptyTab = () => (
-  <View>
-    <Text>Fake</Text>
-  </View>
+  <SafeAreaView
+    style={{
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }} 
+  >
+    <StatusBarStyled />
+
+    <Text>Fake Screen</Text>
+  </SafeAreaView>
 )
 
 const ChatTabs = () => {

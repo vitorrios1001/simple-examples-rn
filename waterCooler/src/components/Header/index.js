@@ -1,7 +1,6 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, SafeAreaView } from 'react-native'
 import { stylesDefault as sd } from '../../assets/styles/default'
-import { COLORS } from '../../constants/theme'
 import { useTheme } from '../../contexts/themeContext'
 
 const Header = ({ left, center, right }) => {
@@ -10,7 +9,7 @@ const Header = ({ left, center, right }) => {
   const { colors } = theme
 
   return (
-    <View style={[
+    <SafeAreaView style={[
       sd.ROW,
       styles.container,
       {
@@ -27,7 +26,7 @@ const Header = ({ left, center, right }) => {
       <View style={styles.right}>
         {right}
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
