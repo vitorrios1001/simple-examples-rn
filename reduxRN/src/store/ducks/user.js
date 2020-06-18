@@ -11,11 +11,11 @@ const Types = {
 
 const INITIAL_STATE = {
   users: {
-    data: null,
+    data: {},
     loading: false,
   },
   userDetails: {
-    data: null,
+    data: {},
     loading: false,
   }
 }
