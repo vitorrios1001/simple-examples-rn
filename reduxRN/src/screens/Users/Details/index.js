@@ -11,7 +11,7 @@ import States from '../../../components/States'
 import { loadUserById } from '../../../services/user'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const UserDetails = (props) => {
+const UserDetails = () => {
   const route = useRoute()
   const dispatch = useDispatch()
   const { id } = route.params
