@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
-import { useRoute } from '@react-navigation/native'
-import { StyleSheet, Text, Linking, Image, View, Button } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRoute } from '@react-navigation/native'
+import { StyleSheet, Text, Linking, Image, View, Button, Alert } from 'react-native'
+import Clipboard from "@react-native-community/clipboard"
 
 import { CardTouchable } from '../../../components'
 import { Col, Row } from '../../../components/Grid'
 import States from '../../../components/States'
 
 import { loadUserById } from '../../../services/user'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const UserDetails = (props) => {
   const route = useRoute()
@@ -24,8 +26,11 @@ const UserDetails = (props) => {
     await Linking.openURL(`mailto:${user.email}?subject=SendMail&body=Description`)
   }
 
-  console.log('details', user)
-
+  const handleCopy = (field, value) => {
+    Clipboard.setString(value)
+    Alert.alert(`${field} copied`)
+  }
+  
   return (
     <CardTouchable style={styles.container}>
       <States loading={loading}>
@@ -34,16 +39,20 @@ const UserDetails = (props) => {
             <Image style={styles.avatar} source={{ uri: user.avatar }} />
           </Row>
           <Row style={styles.contentItem} justify="center">
-            <Col align="center">
-              <Text style={styles.label}>User</Text>
-              <Text style={styles.name}>{user.last_name}, {user.first_name}</Text>
-            </Col>
+            <TouchableOpacity onPress={() => handleCopy('Name', `${user.last_name}, ${user.first_name}`)}>
+              <Col align="center">
+                <Text style={styles.label}>User</Text>
+                <Text style={styles.name}>{user.last_name}, {user.first_name}</Text>
+              </Col>
+            </TouchableOpacity>
           </Row>
           <Row justify="center">
-            <Col align="center">
-              <Text style={styles.label}>Email</Text>
-              <Text style={styles.email}>{user.email}</Text>
-            </Col>
+            <TouchableOpacity onPress={() => handleCopy('Email', user.email)}>
+              <Col align="center">
+                <Text style={styles.label}>Email</Text>
+                <Text style={styles.email}>{user.email}</Text>
+              </Col>
+            </TouchableOpacity>
           </Row>
         </View>
 
