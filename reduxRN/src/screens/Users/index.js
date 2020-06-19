@@ -23,7 +23,7 @@ const Users = () => {
   const renderCard = ({ item }) => (
     <CardTouchable
       key={String(item.id)}
-      onPress={() => navigation.navigate(SCREEN_NAMES.userDetails, { ...item })}
+      onPress={() => navigation.navigate(SCREEN_NAMES.userDetails, { id: item.id })}
     >
       <Row>
         <Col>
