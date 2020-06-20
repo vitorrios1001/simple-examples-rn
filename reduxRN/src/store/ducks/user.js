@@ -11,7 +11,7 @@ const Types = {
 
 const INITIAL_STATE = {
   users: {
-    data: {},
+    data: [],
     loading: false,
   },
   userDetails: {
@@ -25,7 +25,11 @@ const usersReducer = (state = INITIAL_STATE.users, { type, payload }) => {
     case Types.FETCH:
       return { ...state, loading: true }
     case Types.FETCH_SUCCESS:
-      return { ...state, data: payload, loading: false }
+      return {
+        ...state,
+        data: [...state.data, ...payload],
+        loading: false
+      }
     case Types.FETCH_FAILURE:
       return { ...state, loading: false }
     default:

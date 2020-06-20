@@ -1,24 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import { StyleSheet, Text, FlatList, SafeAreaView, Image } from 'react-native'
+import { StyleSheet, Text, FlatList, SafeAreaView, Image, TouchableOpacity, ActivityIndicator, View } from 'react-native'
 
 import { Row, Col } from '../../components/Grid'
 import { CardTouchable } from '../../components'
 import States from '../../components/States'
 
-import { loadUsers } from '../../services/user'
+import { loadUsers } from '../../services/userService'
 
 import { SCREEN_NAMES } from '../../constants'
 
 const Users = () => {
+  const [page, setPage] = useState(1)
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { data, loading } = useSelector(state => state.user.users)
 
   useEffect(() => {
-    dispatch(loadUsers())
-  }, [])
+    dispatch(loadUsers(page))
+  }, [page])
+
+  const loadMore = () => {
+    setPage(page + 1)
+  }
 
   const renderCard = ({ item }) => (
     <CardTouchable
@@ -36,18 +41,38 @@ const Users = () => {
           <Text style={styles.email}>
             {item.email}
           </Text>
+          
+        </Col>
+        <Col>
+          <View style={[styles.status, { backgroundColor: item.active ? 'green' : 'red' }]} />
         </Col>
       </Row>
     </CardTouchable>
   )
 
+  const renderFooter = () => {
+    if (data.length === 0) {
+      return null
+    }
+
+    return (
+      <Col align="center">
+        <ActivityIndicator size="large" />
+        <Text style={{ fontSize: 16 }}>Loading more...</Text>
+      </Col>
+    )
+  }
+
   return (
     <SafeAreaView>
-      <States loading={loading} description="Loading users. Wait...">
+      <States loading={loading && data.length === 0} description="Loading users. Wait...">
         <FlatList
           data={data}
           renderItem={renderCard}
-          keyExtractor={(item) => String(item.id)}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.2}
+          keyExtractor={(item, index) => String(`${item.id}-${index}`)}
+          ListFooterComponent={renderFooter}
         />
       </States>
     </SafeAreaView>
@@ -76,5 +101,20 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     flex: 1,
     marginTop: 4,
-  }
+  },
+  buttonFooter: {
+    backgroundColor: 'blue',
+    width: 200,
+    padding: 8,
+  },
+  textButton: {
+    color: '#FFF',
+    fontSize: 16,
+    textAlign: 'center'
+  },
+  status: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+  },
 })

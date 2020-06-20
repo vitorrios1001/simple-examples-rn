@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRoute } from '@react-navigation/native'
-import { StyleSheet, Text, Linking, Image, View, Button, Alert } from 'react-native'
+import { StyleSheet, Text, Linking, Image, View, Button, Alert, TouchableOpacity } from 'react-native'
 import Clipboard from "@react-native-community/clipboard"
 
 import { CardTouchable } from '../../../components'
 import { Col, Row } from '../../../components/Grid'
 import States from '../../../components/States'
 
-import { loadUserById } from '../../../services/user'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { loadUserById } from '../../../services/userService'
 
 const UserDetails = () => {
   const route = useRoute()
@@ -24,6 +23,10 @@ const UserDetails = () => {
 
   const handleSendEmail = async () => {
     await Linking.openURL(`mailto:${user.email}?subject=SendMail&body=Description`)
+  }
+
+  const handleCallPhone = async () => {
+    await Linking.openURL(`tel:${user.phone}`)
   }
 
   const handleCopy = (field, value) => {
@@ -51,6 +54,20 @@ const UserDetails = () => {
               <Col align="center">
                 <Text style={styles.label}>Email</Text>
                 <Text style={styles.email}>{user.email}</Text>
+              </Col>
+            </TouchableOpacity>
+          </Row>
+          <Row justify="center">
+            <Col align="center">
+              <Text style={styles.label}>Address</Text>
+              <Text style={styles.email}>{user.address}</Text>
+            </Col>
+          </Row>
+          <Row justify="center">
+            <TouchableOpacity onPress={handleCallPhone}>
+              <Col align="center">
+                <Text style={styles.label}>Phone</Text>
+                <Text style={styles.email}>{user.phone}</Text>
               </Col>
             </TouchableOpacity>
           </Row>
