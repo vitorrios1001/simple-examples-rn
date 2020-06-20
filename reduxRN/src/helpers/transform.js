@@ -1,0 +1,1 @@
+export const isActive = (status) => status === 'active'
